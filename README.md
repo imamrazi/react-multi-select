@@ -54,3 +54,15 @@ You can override the strings to be whatever you want, including translations for
     }}
 />
 ```
+# Developer Notes
+## To Run Example:
+`npm run storybook`
+
+## To Create/Update Distribution (dist) Folder:
+## For Widows 
+1. Update the `prepublish` path in package.json file to absolute path of `.scripts/prepublish.sh` file. Example `C:/Users/Admin/**/**/react-multi-select/.scripts/prepublish.sh`
+2. Then run the command `npm run prepublish` in terminal to regenerate dist folder.
+
+## For MAC
+1. Update the `prepublish` path in package.json file to `. ./.scripts/prepublish.sh`.
+2. Run the command `npm run prepublish` in terminal to regenerate dist folder.

@@ -40,13 +40,15 @@ type Props = {
     hasSelectAll: boolean,
     filterOptions?: (options: Array<Option>, filter: string) => Array<Option>,
     overrideStrings?: {[string]: string},
-    labelledBy: string
+    labelledBy: string,
+    hideAfterSelection: boolean
 };
 
 class MultiSelect extends Component<Props> {
     static defaultProps = {
         hasSelectAll: true,
         shouldToggleOnHover: false,
+        hideAfterSelection: false,
     }
 
     getSelectedText() {
@@ -92,7 +94,7 @@ class MultiSelect extends Component<Props> {
     }
 
     handleSelectedChanged = (selected: Array<any>) => {
-        const {onSelectedChanged, disabled} = this.props;
+        const {onSelectedChanged, disabled, hideAfterSelection} = this.props;
 
         if (disabled) {
             return;
@@ -100,6 +102,9 @@ class MultiSelect extends Component<Props> {
 
         if (onSelectedChanged) {
             onSelectedChanged(selected);
+            if (hideAfterSelection) {
+                this.dropDownRef.toggleExpanded(false);
+            }
         }
     }
 
@@ -120,7 +125,7 @@ class MultiSelect extends Component<Props> {
         } = this.props;
 
         return <div className="multi-select">
-            <Dropdown
+            <Dropdown ref={ref => this.dropDownRef = ref}
                 isLoading={isLoading}
                 contentComponent={SelectPanel}
                 shouldToggleOnHover={shouldToggleOnHover}

@@ -23,6 +23,10 @@ var _getString = require('./get-string.js');
 
 var _getString2 = _interopRequireDefault(_getString);
 
+var _selectItem = require('./select-item.js');
+
+var _selectItem2 = _interopRequireDefault(_selectItem);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -62,7 +66,8 @@ var MultiSelect = function (_Component) {
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = MultiSelect.__proto__ || Object.getPrototypeOf(MultiSelect)).call.apply(_ref, [this].concat(args))), _this), _this.handleSelectedChanged = function (selected) {
             var _this$props = _this.props,
                 onSelectedChanged = _this$props.onSelectedChanged,
-                disabled = _this$props.disabled;
+                disabled = _this$props.disabled,
+                hideAfterSelection = _this$props.hideAfterSelection;
 
 
             if (disabled) {
@@ -71,6 +76,9 @@ var MultiSelect = function (_Component) {
 
             if (onSelectedChanged) {
                 onSelectedChanged(selected);
+                if (hideAfterSelection) {
+                    _this.dropDownRef.toggleExpanded(false);
+                }
             }
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
@@ -135,6 +143,8 @@ var MultiSelect = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var _props3 = this.props,
                 ItemRenderer = _props3.ItemRenderer,
                 options = _props3.options,
@@ -146,7 +156,8 @@ var MultiSelect = function (_Component) {
                 filterOptions = _props3.filterOptions,
                 shouldToggleOnHover = _props3.shouldToggleOnHover,
                 hasSelectAll = _props3.hasSelectAll,
-                overrideStrings = _props3.overrideStrings;
+                overrideStrings = _props3.overrideStrings,
+                labelledBy = _props3.labelledBy;
 
 
             return _react2.default.createElement(
@@ -154,7 +165,9 @@ var MultiSelect = function (_Component) {
                 { className: 'multi-select' },
                 _react2.default.createElement(
                     _dropdown2.default,
-                    {
+                    { ref: function ref(_ref2) {
+                            return _this2.dropDownRef = _ref2;
+                        },
                         isLoading: isLoading,
                         contentComponent: _selectPanel2.default,
                         shouldToggleOnHover: shouldToggleOnHover,
@@ -170,7 +183,8 @@ var MultiSelect = function (_Component) {
                             filterOptions: filterOptions,
                             overrideStrings: overrideStrings
                         },
-                        disabled: disabled
+                        disabled: disabled,
+                        labelledBy: labelledBy
                     },
                     this.renderHeader()
                 )
@@ -183,7 +197,8 @@ var MultiSelect = function (_Component) {
 
 MultiSelect.defaultProps = {
     hasSelectAll: true,
-    shouldToggleOnHover: false
+    shouldToggleOnHover: false,
+    hideAfterSelection: false
 };
 
 

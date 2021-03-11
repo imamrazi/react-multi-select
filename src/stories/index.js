@@ -111,7 +111,8 @@ type SMSProps = {
     disabled?: boolean,
     disableSearch?: boolean,
     filterOptions?: (options: Array<Option>, filter: string) => Array<Option>,
-    overrideStrings?: {[string]: string}
+    overrideStrings?: {[string]: string},
+    hideAfterSelection: boolean
 };
 type SMSState = {
     selected: Array<Option>
@@ -140,6 +141,7 @@ class StatefulMultiSelect extends Component<SMSProps, SMSState> {
             disableSearch,
             filterOptions,
             overrideStrings,
+            hideAfterSelection,
         } = this.props;
         const {selected} = this.state;
 
@@ -156,6 +158,7 @@ class StatefulMultiSelect extends Component<SMSProps, SMSState> {
                 disableSearch={disableSearch}
                 filterOptions={filterOptions}
                 overrideStrings={overrideStrings}
+                hideAfterSelection={hideAfterSelection}
             />
 
             <h2>Selected:</h2>
@@ -214,7 +217,7 @@ const customFilter = (options: Array<Option>, filter: string) => {
 storiesOf('MultiSelect', module)
     .add('default view', () => <StatefulMultiSelect options={shortList} />)
     .add('long list view', () => <StatefulMultiSelect options={longList} />)
-    .add('United States', () => <StatefulMultiSelect options={statesList} />)
+    .add('United States', () => <StatefulMultiSelect options={statesList} hideAfterSelection={true} />)
     .add('Custom Heading Renderer', () => <StatefulMultiSelect
         options={studentsList}
         valueRenderer={studentValueRenderer}

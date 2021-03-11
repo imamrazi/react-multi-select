@@ -1,0 +1,4 @@
+Before using the package in project do the below update in dist files,
+1) Update `{ className: 'multi-select' }` to `{ className: 'smart-multi-select' }` in index.js to maintain same UI in dropdown options.
+2) Update `if (disabled) { true; }` to `if (disabled) { \\ true; }` in select-list.js.
+3) Command `var _fuzzyMatchUtils = require('fuzzy-match-utils');` in select-panel.js and find `key: 'filteredOptions'` in the file and update the return to ` return customFilterOptions ? customFilterOptions(options, searchText) : options.filter(o => o.label.includes(searchText));`. 
